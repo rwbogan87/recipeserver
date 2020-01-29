@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('recipebible', 'postgres', 'ryanpostgres!', {
-    host: 'localhost',
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres'
 });
 
