@@ -21,9 +21,9 @@ router.post('/create', validateSession, function (req, res) {
 
 //Get all currently logged recipes
 router.get('/', (req, res) => {
-    Recipe.findAll()
+    Recipe.findAll(req.body)
     .then(recipe => res.status(200).json(recipe))
-    .catch(err => res.status(500).json({error: err}))
+    .catch(err => res.json({error: err}))
 });
 
 //Update an existing Recipe

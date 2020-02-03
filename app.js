@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(require('./middleware/headers.js'));
 
 app.use('/user', user);
+app.use(require('./middleware/validate-session'));
 app.use('/recipe', recipes)
 
 app.listen(process.env.PORT, () => console.log(`app listening on ${process.env.PORT}`));
