@@ -35,7 +35,9 @@ router.put('/update/:id', validateSession, (req, res) => {
 
 //works
 router.delete('/:id', validateSession, (req, res) => {
-    Recipe.destroy({ where: {id: req.params.id} })
+    Recipe.destroy({ where: { 
+        id: req.params.id, recipePublic: true
+    } })
       .then(recipe => res.status(200).json(recipe))
       .catch(err => res.json({error: err}))
 })
