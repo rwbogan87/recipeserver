@@ -1,10 +1,9 @@
 const router = require('express').Router();
+// user model is being imported to link to this controller; this allows us to apply req.body (user input) to the user model names
 const User = require('../db').import('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-/////STILL IN DEV
-// test some routes
 //successfully creates new user
 router.post('/create', function (req, res) {
     User.create({
@@ -15,6 +14,7 @@ router.post('/create', function (req, res) {
     }).then(
         function createSuccess(user) {
 
+            // token created that is passed as sessionToken, which is needed to access anything requiring a token inside the app (recipes)
            var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: 60*60*24});
 
             res.json({
@@ -38,6 +38,7 @@ router.post('/login', (req, res) => {
     })
     .then(user => {
         if(user) {
+            // bcrypt actually carries and encrypts the password so it can't be interfered or translated until it hits the database to be compared for a match
             bcrypt.compare(req.body.password, user.password, (err, matches) => {
                 if(matches) {
                     let token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {expiresIn: 60*60*24})

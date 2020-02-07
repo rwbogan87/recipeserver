@@ -28,7 +28,9 @@ router.get('/', (req, res) => {
 
 //Update an existing Recipe
 router.put('/update/:id', validateSession, (req, res) => {
-    Recipe.update(req.body, { where: { id: req.params.id }})
+    Recipe.update(req.body, { where: { 
+        id: req.params.id, recipePublic: true
+    } })
     .then(recipe => res.status(200).json(recipe))
     .catch(err => res.json({error: err}))
 })
