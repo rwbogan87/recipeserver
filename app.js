@@ -10,8 +10,8 @@ app.use('/postman', function(req, res){
     res.send('hey postman is working on the server');
 });
 
-// sequelize.sync();
-sequelize.sync({force: true});
+sequelize.sync();
+// sequelize.sync({force: true});
 
 app.use(express.json());
 app.use(require('./middleware/headers.js'));
