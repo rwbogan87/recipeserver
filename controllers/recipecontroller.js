@@ -26,6 +26,14 @@ router.get('/', (req, res) => {
     .catch(err => res.json({error: err}))
 });
 
+router.get('/:category', (req, res) => {
+    Recipe.findAll(req.body, { where: {
+        category: req.params.category
+    }})
+    .then(recipe => res.status(200).json(recipe))
+    .catch(err => res.json({error: err}))
+})
+
 //Update an existing Recipe
 router.put('/update/:id', validateSession, (req, res) => {
     Recipe.update(req.body, { where: { 
